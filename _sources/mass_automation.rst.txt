@@ -1,0 +1,55 @@
+mass\_automation package
+========================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   mass_automation.deisotoping
+   mass_automation.formula
+   mass_automation.sample_identification
+
+Submodules
+----------
+
+mass\_automation.experiment module
+----------------------------------
+
+.. automodule:: mass_automation.experiment
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mass\_automation.plot module
+----------------------------
+
+.. automodule:: mass_automation.plot
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mass\_automation.uncertainty module
+-----------------------------------
+
+.. automodule:: mass_automation.uncertainty
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mass\_automation.utils module
+-----------------------------
+
+.. automodule:: mass_automation.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: mass_automation
+   :members:
+   :undoc-members:
+   :show-inheritance:

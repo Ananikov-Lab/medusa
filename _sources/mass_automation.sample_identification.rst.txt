@@ -1,0 +1,21 @@
+mass\_automation.sample\_identification package
+===============================================
+
+Submodules
+----------
+
+mass\_automation.sample\_identification.plot module
+---------------------------------------------------
+
+.. automodule:: mass_automation.sample_identification.plot
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: mass_automation.sample_identification
+   :members:
+   :undoc-members:
+   :show-inheritance:

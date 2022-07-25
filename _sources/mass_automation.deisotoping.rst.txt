@@ -1,0 +1,21 @@
+mass\_automation.deisotoping package
+====================================
+
+Submodules
+----------
+
+mass\_automation.deisotoping.process module
+-------------------------------------------
+
+.. automodule:: mass_automation.deisotoping.process
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: mass_automation.deisotoping
+   :members:
+   :undoc-members:
+   :show-inheritance:

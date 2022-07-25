@@ -1,0 +1,1798 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="mass_automation.sample_identification package" href="mass_automation.sample_identification.html" /><link rel="prev" title="mass_automation.deisotoping package" href="mass_automation.deisotoping.html" />
+
+    <meta name="generator" content="sphinx-5.0.2, furo 2022.06.21"/>
+        <title>mass_automation.formula package - MEDUSA documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">MEDUSA  documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  
+  <span class="sidebar-brand-text">MEDUSA  documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quick_start.html">Quick start</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="mass_automation.html">mass_automation package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="mass_automation.deisotoping.html">mass_automation.deisotoping package</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">mass_automation.formula package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mass_automation.sample_identification.html">mass_automation.sample_identification package</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="mass-automation-formula-package">
+<h1>mass_automation.formula package<a class="headerlink" href="#mass-automation-formula-package" title="Permalink to this heading">#</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="module-mass_automation.formula.augmentations">
+<span id="mass-automation-formula-augmentations-module"></span><h2>mass_automation.formula.augmentations module<a class="headerlink" href="#module-mass_automation.formula.augmentations" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="mass_automation.formula.augmentations.Add">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mass_automation.formula.augmentations.</span></span><span class="sig-name descname"><span class="pre">Add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.augmentations.Add" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Adds uniformly sampled intensity shift</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mass_automation.formula.augmentations.AugmentationWrapper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mass_automation.formula.augmentations.</span></span><span class="sig-name descname"><span class="pre">AugmentationWrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.augmentations.AugmentationWrapper" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Wraps the set of augmentations</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mass_automation.formula.augmentations.DroppingAug">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mass_automation.formula.augmentations.</span></span><span class="sig-name descname"><span class="pre">DroppingAug</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threshold</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">probability</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.augmentations.DroppingAug" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Drops a subspectrum with certain probability</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mass_automation.formula.augmentations.RandomNoise">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mass_automation.formula.augmentations.</span></span><span class="sig-name descname"><span class="pre">RandomNoise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.augmentations.RandomNoise" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Adds random noise to the subspectrum</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mass_automation.formula.augmentations.Scale">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mass_automation.formula.augmentations.</span></span><span class="sig-name descname"><span class="pre">Scale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.augmentations.Scale" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Scales the subspectrum randomly</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mass_automation.formula.augmentations.Shift">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mass_automation.formula.augmentations.</span></span><span class="sig-name descname"><span class="pre">Shift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.augmentations.Shift" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Shifts subspectra; shift sampled uniformly from delta</p>
+</dd></dl>
+
+</section>
+<section id="module-mass_automation.formula.check_formula">
+<span id="mass-automation-formula-check-formula-module"></span><h2>mass_automation.formula.check_formula module<a class="headerlink" href="#module-mass_automation.formula.check_formula" title="Permalink to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="mass_automation.formula.check_formula.add_new_peak">
+<span class="sig-prename descclassname"><span class="pre">mass_automation.formula.check_formula.</span></span><span class="sig-name descname"><span class="pre">add_new_peak</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spectrum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vector</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">teor_vector</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist_error</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.check_formula.add_new_peak" title="Permalink to this definition">#</a></dt>
+<dd><p>Adds best peak’s mass and intensity to the array of registered masses and intensities respectively.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spectrum</strong> (<a class="reference internal" href="mass_automation.html#mass_automation.experiment.Spectrum" title="mass_automation.experiment.Spectrum"><em>Spectrum</em></a>) – The spectrum, where function gets peak candidates and chooses the best one to add to the
+resulting vector.</p></li>
+<li><p><strong>delta</strong> (<em>float</em>) – The distance between the last mass in the vector of masses and the center of the slice, where
+get_peak_candidates tries to find peaks.</p></li>
+<li><p><strong>vector</strong> (<em>np.ndarray</em>) – The 2D-array, where the first array is the vector of masses, where the function should add the best
+mass and the second array id the array of intensities, where the function should add the best intensity.</p></li>
+<li><p><strong>teor_vector</strong> (<em>np.array</em>) – The theoretical vector of intensities, which best_peak uses to count the cosine distance.</p></li>
+<li><p><strong>dist_error</strong> (<em>float</em>) – The possible error in distance between the peaks, characterizes the radius of the second and the next
+peak’s vicinity.</p></li>
+<li><p><strong>distance</strong> (<em>int</em>) – The parameter, used in peak finding algorithm. (default is 1).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>np.ndarray</em></p></li>
+<li><p><em>The 2D numpy array of masses and intensities with the best chosen last mass and intensity respectively</em></p></li>
+<li><p><em>and indicator of matching the peak.</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mass_automation.formula.check_formula.best_peak">
+<span class="sig-prename descclassname"><span class="pre">mass_automation.formula.check_formula.</span></span><span class="sig-name descname"><span class="pre">best_peak</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos_peak_masses</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_peak_ints</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">teor_vector</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ints_vector</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.check_formula.best_peak" title="Permalink to this definition">#</a></dt>
+<dd><p>The function chooses the best peak to add by counting the cosine distance between the theoretical vector
+of intensities and the vector of intensities with the registered peak.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pos_peak_masses</strong> (<em>np.array</em>) – The array of possible best peak masses.</p></li>
+<li><p><strong>pos_peak_ints</strong> (<em>np.array</em>) – The array of possible best peak intensities.</p></li>
+<li><p><strong>teor_vector</strong> (<em>np.array</em>) – The theoretical vector of intensities, which function uses to count the cosine distance.</p></li>
+<li><p><strong>ints_vector</strong> (<em>np.array</em>) – The vector of previous intensities. By adding possible best peak intensity to the ints_vector,
+the function gets the new possible intensities vector and counts the cosine distance between it and the
+theoretical vector.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>Tuple[float, float]</em></p></li>
+<li><p><em>The tuple contains the best peak’s mass and the best peak’s intensity.</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mass_automation.formula.check_formula.check_presence">
+<span class="sig-prename descclassname"><span class="pre">mass_automation.formula.check_formula.</span></span><span class="sig-name descname"><span class="pre">check_presence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spectrum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formula</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cal_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.006</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.003</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_peaks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.check_formula.check_presence" title="Permalink to this definition">#</a></dt>
+<dd><p>Calculates the cosine distance between the peaks of the theoretical isotope distribution
+and the peaks in their confidence intervals.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spectrum</strong> (<a class="reference internal" href="mass_automation.html#mass_automation.experiment.Spectrum" title="mass_automation.experiment.Spectrum"><em>Spectrum</em></a>) – The spectrum, where algorithm tries to detect the substance.</p></li>
+<li><p><strong>formula</strong> (<a class="reference internal" href="#mass_automation.formula.Formula" title="mass_automation.formula.Formula"><em>Formula</em></a>) – The Formula class of the substance.</p></li>
+<li><p><strong>cal_error</strong> (<em>float</em>) – The radius of the first peak’ vicinity (default is 0.006).</p></li>
+<li><p><strong>dist_error</strong> (<em>float</em>) – The possible error in distance between the peaks, characterizes the radius of the second and the next
+peak’s vicinity (default is 0.001).</p></li>
+<li><p><strong>distance</strong> (<em>int</em>) – The parameter, used in peak finding algorithm. (default is 50).</p></li>
+<li><p><strong>max_peaks</strong> (<em>int</em>) – Limits the number of possible first peaks (default is 5).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>Tuple[float, np.ndarray, np.ndarray, float, float]</em></p></li>
+<li><p><em>Cosine distance, the arrays of possible masses and intensities and matched peaks percentage.</em></p></li>
+<li><p><em>Mass error (in ppm)</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mass_automation.formula.check_formula.del_isotopologues">
+<span class="sig-prename descclassname"><span class="pre">mass_automation.formula.check_formula.</span></span><span class="sig-name descname"><span class="pre">del_isotopologues</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">masses</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peaks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#mass_automation.formula.check_formula.del_isotopologues" title="Permalink to this definition">#</a></dt>
+<dd><p>Delete low intense isotopologues.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>masses</strong> (<em>np.ndarray</em>) – The array of masses from the isotopic distribution.</p></li>
+<li><p><strong>peaks</strong> (<em>np.ndarray</em>) – The array of intensities from the isotopic distribution.</p></li>
+<li><p><strong>return_ids</strong> (<em>bool</em>) – Return ids of the most intensive peaks</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Contains two numpy arrays with new masses and intensities without the isotopologues or just the ids,
+depending on the <code class="docutils literal notranslate"><span class="pre">return_ids</span></code> parameter.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Union[Tuple[np.ndarray, np.ndarray], List[int]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mass_automation.formula.check_formula.get_peak_candidates">
+<span class="sig-prename descclassname"><span class="pre">mass_automation.formula.check_formula.</span></span><span class="sig-name descname"><span class="pre">get_peak_candidates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spectrum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peak_mass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.check_formula.get_peak_candidates" title="Permalink to this definition">#</a></dt>
+<dd><p>Peak finding around the given mass.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spectrum</strong> (<a class="reference internal" href="mass_automation.html#mass_automation.experiment.Spectrum" title="mass_automation.experiment.Spectrum"><em>Spectrum</em></a>) – The spectrum, where function tries to find peaks.</p></li>
+<li><p><strong>peak_mass</strong> (<em>float</em>) – The given mass, the center of the slice, where function finds peaks</p></li>
+<li><p><strong>error</strong> (<em>float</em>) – The radius of the slice, where function performs.</p></li>
+<li><p><strong>distance</strong> (<em>int</em>) – The parameter, used in peak finding algorithm. (default is 1).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>Tuple[np.ndarray, np.ndarray, np.ndarray, bool]</em></p></li>
+<li><p><em>The first element in the tuple is the array of peak masses, the second is the array of peak intensities and</em></p></li>
+<li><p><em>the third is the array of peak indices in the slice array. If function finds no peaks, it returns the value of</em></p></li>
+<li><p><em>the given mass, the median intensity in the slice and the array of indices is numpy.array([0]) Fourth element</em></p></li>
+<li><p><em>indicates, if function finds at least one peak in the spectrum, else not.</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-mass_automation.formula.data">
+<span id="mass-automation-formula-data-module"></span><h2>mass_automation.formula.data module<a class="headerlink" href="#module-mass_automation.formula.data" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="mass_automation.formula.data.OriginalFormulaDataset">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mass_automation.formula.data.</span></span><span class="sig-name descname"><span class="pre">OriginalFormulaDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">formulas</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mass_automation.formula.Formula" title="mass_automation.formula.Formula"><span class="pre">Formula</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formula_converter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">representations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">augmentations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_classifier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.data.OriginalFormulaDataset" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></p>
+<p>Constructs the dataset of model training</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mass_automation.formula.data.PadSequence">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mass_automation.formula.data.</span></span><span class="sig-name descname"><span class="pre">PadSequence</span></span><a class="headerlink" href="#mass_automation.formula.data.PadSequence" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Prepares a sequence as an input for LSTM network</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mass_automation.formula.data.PadSequenceConstant">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mass_automation.formula.data.</span></span><span class="sig-name descname"><span class="pre">PadSequenceConstant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">first_x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.data.PadSequenceConstant" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Prepares a sequence as an input for MLP</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mass_automation.formula.data.formula2element">
+<span class="sig-prename descclassname"><span class="pre">mass_automation.formula.data.</span></span><span class="sig-name descname"><span class="pre">formula2element</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">formula</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mass_automation.formula.Formula" title="mass_automation.formula.Formula"><span class="pre">Formula</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">element_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#mass_automation.formula.data.formula2element" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mass_automation.formula.data.formula2element_amount">
+<span class="sig-prename descclassname"><span class="pre">mass_automation.formula.data.</span></span><span class="sig-name descname"><span class="pre">formula2element_amount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">formula</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mass_automation.formula.Formula" title="mass_automation.formula.Formula"><span class="pre">Formula</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">element_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#mass_automation.formula.data.formula2element_amount" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mass_automation.formula.data.formula2vector">
+<span class="sig-prename descclassname"><span class="pre">mass_automation.formula.data.</span></span><span class="sig-name descname"><span class="pre">formula2vector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">formula</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mass_automation.formula.Formula" title="mass_automation.formula.Formula"><span class="pre">Formula</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalizer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.data.formula2vector" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mass_automation.formula.data.generate_fake_representation">
+<span class="sig-prename descclassname"><span class="pre">mass_automation.formula.data.</span></span><span class="sig-name descname"><span class="pre">generate_fake_representation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">formula</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mass_automation.formula.Formula" title="mass_automation.formula.Formula"><span class="pre">Formula</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.data.generate_fake_representation" title="Permalink to this definition">#</a></dt>
+<dd><p>Simulates isotopic distribution and constructs pseudo-spectrum</p>
+</dd></dl>
+
+</section>
+<section id="module-mass_automation.formula.determination">
+<span id="mass-automation-formula-determination-module"></span><h2>mass_automation.formula.determination module<a class="headerlink" href="#module-mass_automation.formula.determination" title="Permalink to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="mass_automation.formula.determination.brute_force_search">
+<span class="sig-prename descclassname"><span class="pre">mass_automation.formula.determination.</span></span><span class="sig-name descname"><span class="pre">brute_force_search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exact_mass</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elements</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">low_limits</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">high_limits</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spectrum</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="mass_automation.html#mass_automation.experiment.Spectrum" title="mass_automation.experiment.Spectrum"><span class="pre">Spectrum</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">evaluation_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_presence_params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.determination.brute_force_search" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-mass_automation.formula.model">
+<span id="mass-automation-formula-model-module"></span><h2>mass_automation.formula.model module<a class="headerlink" href="#module-mass_automation.formula.model" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="mass_automation.formula.model.LSTM">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mass_automation.formula.model.</span></span><span class="sig-name descname"><span class="pre">LSTM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lstm_in_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lstm_hidden_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">128</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lstm_num_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lstm_bidirectional</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lstm_dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decoder_hidden_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">128</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'MSE'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Adam'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0002</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.model.LSTM" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">LightningModule</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mass_automation.formula.model.LSTM.configure_optimizers">
+<span class="sig-name descname"><span class="pre">configure_optimizers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.model.LSTM.configure_optimizers" title="Permalink to this definition">#</a></dt>
+<dd><p>Choose what optimizers and learning-rate schedulers to use in your optimization.
+Normally you’d need one. But in the case of GANs or similar you might have multiple.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><p>Any of these 6 options.</p>
+<ul class="simple">
+<li><p>Single optimizer.</p></li>
+<li><p>List or Tuple - List of optimizers.</p></li>
+<li><p>Two lists - The first list has multiple optimizers, the second a list of LR schedulers (or lr_dict).</p></li>
+<li><p>Dictionary, with an ‘optimizer’ key, and (optionally) a ‘lr_scheduler’
+key whose value is a single LR scheduler or lr_dict.</p></li>
+<li><p>Tuple of dictionaries as described, with an optional ‘frequency’ key.</p></li>
+<li><p>None - Fit will run without any optimizer.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The ‘frequency’ value is an int corresponding to the number of sequential batches
+optimized with the specific optimizer. It should be given to none or to all of the optimizers.
+There is a difference between passing multiple optimizers in a list,
+and passing multiple optimizers in dictionaries with a frequency of 1:
+In the former case, all optimizers will operate on the given batch in each optimization step.
+In the latter, only one optimizer will operate on the given batch at every step.</p>
+<p>The lr_dict is a dictionary which contains the scheduler and its associated configuration.
+The default configuration is shown below.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;scheduler&#39;</span><span class="p">:</span> <span class="n">lr_scheduler</span><span class="p">,</span> <span class="c1"># The LR scheduler instance (required)</span>
+    <span class="s1">&#39;interval&#39;</span><span class="p">:</span> <span class="s1">&#39;epoch&#39;</span><span class="p">,</span> <span class="c1"># The unit of the scheduler&#39;s step size</span>
+    <span class="s1">&#39;frequency&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="c1"># The frequency of the scheduler</span>
+    <span class="s1">&#39;reduce_on_plateau&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="c1"># For ReduceLROnPlateau scheduler</span>
+    <span class="s1">&#39;monitor&#39;</span><span class="p">:</span> <span class="s1">&#39;val_loss&#39;</span><span class="p">,</span> <span class="c1"># Metric for ReduceLROnPlateau to monitor</span>
+    <span class="s1">&#39;strict&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="c1"># Whether to crash the training if `monitor` is not found</span>
+    <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="c1"># Custom name for LearningRateMonitor to use</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Only the <code class="docutils literal notranslate"><span class="pre">scheduler</span></code> key is required, the rest will be set to the defaults above.</p>
+</div>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># most cases</span>
+<span class="k">def</span> <span class="nf">configure_optimizers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">opt</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">opt</span>
+
+<span class="c1"># multiple optimizer case (e.g.: GAN)</span>
+<span class="k">def</span> <span class="nf">configure_optimizers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">generator_opt</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_gen</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+    <span class="n">disriminator_opt</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_disc</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">generator_opt</span><span class="p">,</span> <span class="n">disriminator_opt</span>
+
+<span class="c1"># example with learning rate schedulers</span>
+<span class="k">def</span> <span class="nf">configure_optimizers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">generator_opt</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_gen</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+    <span class="n">disriminator_opt</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_disc</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
+    <span class="n">discriminator_sched</span> <span class="o">=</span> <span class="n">CosineAnnealing</span><span class="p">(</span><span class="n">discriminator_opt</span><span class="p">,</span> <span class="n">T_max</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">generator_opt</span><span class="p">,</span> <span class="n">disriminator_opt</span><span class="p">],</span> <span class="p">[</span><span class="n">discriminator_sched</span><span class="p">]</span>
+
+<span class="c1"># example with step-based learning rate schedulers</span>
+<span class="k">def</span> <span class="nf">configure_optimizers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">gen_opt</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_gen</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+    <span class="n">dis_opt</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_disc</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
+    <span class="n">gen_sched</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;scheduler&#39;</span><span class="p">:</span> <span class="n">ExponentialLR</span><span class="p">(</span><span class="n">gen_opt</span><span class="p">,</span> <span class="mf">0.99</span><span class="p">),</span>
+                 <span class="s1">&#39;interval&#39;</span><span class="p">:</span> <span class="s1">&#39;step&#39;</span><span class="p">}</span>  <span class="c1"># called after each training step</span>
+    <span class="n">dis_sched</span> <span class="o">=</span> <span class="n">CosineAnnealing</span><span class="p">(</span><span class="n">discriminator_opt</span><span class="p">,</span> <span class="n">T_max</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># called every epoch</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">gen_opt</span><span class="p">,</span> <span class="n">dis_opt</span><span class="p">],</span> <span class="p">[</span><span class="n">gen_sched</span><span class="p">,</span> <span class="n">dis_sched</span><span class="p">]</span>
+
+<span class="c1"># example with optimizer frequencies</span>
+<span class="c1"># see training procedure in `Improved Training of Wasserstein GANs`, Algorithm 1</span>
+<span class="c1"># https://arxiv.org/abs/1704.00028</span>
+<span class="k">def</span> <span class="nf">configure_optimizers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">gen_opt</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_gen</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+    <span class="n">dis_opt</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_disc</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
+    <span class="n">n_critic</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="p">{</span><span class="s1">&#39;optimizer&#39;</span><span class="p">:</span> <span class="n">dis_opt</span><span class="p">,</span> <span class="s1">&#39;frequency&#39;</span><span class="p">:</span> <span class="n">n_critic</span><span class="p">},</span>
+        <span class="p">{</span><span class="s1">&#39;optimizer&#39;</span><span class="p">:</span> <span class="n">gen_opt</span><span class="p">,</span> <span class="s1">&#39;frequency&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some things to know:</p>
+<ul>
+<li><p>Lightning calls <code class="docutils literal notranslate"><span class="pre">.backward()</span></code> and <code class="docutils literal notranslate"><span class="pre">.step()</span></code> on each optimizer
+and learning rate scheduler as needed.</p></li>
+<li><p>If you use 16-bit precision (<code class="docutils literal notranslate"><span class="pre">precision=16</span></code>), Lightning will automatically
+handle the optimizers for you.</p></li>
+<li><p>If you use multiple optimizers, <a class="reference internal" href="#mass_automation.formula.model.LSTM.training_step" title="mass_automation.formula.model.LSTM.training_step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">training_step()</span></code></a> will have an additional
+<code class="docutils literal notranslate"><span class="pre">optimizer_idx</span></code> parameter.</p></li>
+<li><p>If you use LBFGS Lightning handles the closure function automatically for you.</p></li>
+<li><p>If you use multiple optimizers, gradients will be calculated only
+for the parameters of current optimizer at each training step.</p></li>
+<li><p>If you need to control how often those optimizers step or override the
+default <code class="docutils literal notranslate"><span class="pre">.step()</span></code> schedule, override the <code class="xref py py-meth docutils literal notranslate"><span class="pre">optimizer_step()</span></code> hook.</p></li>
+<li><p>If you only want to call a learning rate scheduler every <code class="docutils literal notranslate"><span class="pre">x</span></code> step or epoch,
+or want to monitor a custom metric, you can specify these in a lr_dict:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;scheduler&#39;</span><span class="p">:</span> <span class="n">lr_scheduler</span><span class="p">,</span>
+    <span class="s1">&#39;interval&#39;</span><span class="p">:</span> <span class="s1">&#39;step&#39;</span><span class="p">,</span>  <span class="c1"># or &#39;epoch&#39;</span>
+    <span class="s1">&#39;monitor&#39;</span><span class="p">:</span> <span class="s1">&#39;val_f1&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;frequency&#39;</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mass_automation.formula.model.LSTM.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.model.LSTM.forward" title="Permalink to this definition">#</a></dt>
+<dd><p>Same as <code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.nn.Module.forward()</span></code>, however in Lightning you want this to define
+the operations you want to use for prediction (i.e.: on a server or as a feature extractor).</p>
+<p>Normally you’d call <code class="docutils literal notranslate"><span class="pre">self()</span></code> from your <a class="reference internal" href="#mass_automation.formula.model.LSTM.training_step" title="mass_automation.formula.model.LSTM.training_step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">training_step()</span></code></a> method.
+This makes it easy to write a complex system for training with the outputs
+you’d want in a prediction setting.</p>
+<p>You may also find the <code class="xref py py-func docutils literal notranslate"><span class="pre">auto_move_data()</span></code> decorator useful
+when using the module outside Lightning in a production setting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>*args</strong> – Whatever you decide to pass into the forward method.</p></li>
+<li><p><strong>**kwargs</strong> – Keyword arguments are also possible.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Predicted output</p>
+</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># example if we were using this model as a feature extractor</span>
+<span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="n">feature_maps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">convnet</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">feature_maps</span>
+
+<span class="k">def</span> <span class="nf">training_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">batch</span>
+    <span class="n">feature_maps</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">logits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span><span class="p">(</span><span class="n">feature_maps</span><span class="p">)</span>
+
+    <span class="c1"># ...</span>
+    <span class="k">return</span> <span class="n">loss</span>
+
+<span class="c1"># splitting it this way allows model to be used a feature extractor</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">MyModelAbove</span><span class="p">()</span>
+
+<span class="n">inputs</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">get_request</span><span class="p">()</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+<span class="n">server</span><span class="o">.</span><span class="n">write_results</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+
+<span class="c1"># -------------</span>
+<span class="c1"># This is in stark contrast to torch.nn.Module where normally you would have this:</span>
+<span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">batch</span>
+    <span class="n">feature_maps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">convnet</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">logits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span><span class="p">(</span><span class="n">feature_maps</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">logits</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mass_automation.formula.model.LSTM.test_epoch_end">
+<span class="sig-name descname"><span class="pre">test_epoch_end</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.model.LSTM.test_epoch_end" title="Permalink to this definition">#</a></dt>
+<dd><p>Called at the end of a test epoch with the output of all test steps.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># the pseudocode for these calls</span>
+<span class="n">test_outs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">test_batch</span> <span class="ow">in</span> <span class="n">test_data</span><span class="p">:</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">test_step</span><span class="p">(</span><span class="n">test_batch</span><span class="p">)</span>
+    <span class="n">test_outs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+<span class="n">test_epoch_end</span><span class="p">(</span><span class="n">test_outs</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>outputs</strong> – List of outputs you defined in <code class="xref py py-meth docutils literal notranslate"><span class="pre">test_step_end()</span></code>, or if there
+are multiple dataloaders, a list containing a list of outputs for each dataloader</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you didn’t define a <a class="reference internal" href="#mass_automation.formula.model.LSTM.test_step" title="mass_automation.formula.model.LSTM.test_step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">test_step()</span></code></a>, this won’t be called.</p>
+</div>
+<p class="rubric">Examples</p>
+<p>With a single dataloader:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outputs</span><span class="p">):</span>
+    <span class="c1"># do something with the outputs of all test batches</span>
+    <span class="n">all_test_preds</span> <span class="o">=</span> <span class="n">test_step_outputs</span><span class="o">.</span><span class="n">predictions</span>
+
+    <span class="n">some_result</span> <span class="o">=</span> <span class="n">calc_all_results</span><span class="p">(</span><span class="n">all_test_preds</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">some_result</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>With multiple dataloaders, <cite>outputs</cite> will be a list of lists. The outer list contains
+one entry per dataloader, while the inner list contains the individual outputs of
+each test step for that dataloader.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outputs</span><span class="p">):</span>
+    <span class="n">final_value</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">dataloader_outputs</span> <span class="ow">in</span> <span class="n">outputs</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">test_step_out</span> <span class="ow">in</span> <span class="n">dataloader_outputs</span><span class="p">:</span>
+            <span class="c1"># do something</span>
+            <span class="n">final_value</span> <span class="o">+=</span> <span class="n">test_step_out</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;final_metric&#39;</span><span class="p">,</span> <span class="n">final_value</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mass_automation.formula.model.LSTM.test_step">
+<span class="sig-name descname"><span class="pre">test_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.model.LSTM.test_step" title="Permalink to this definition">#</a></dt>
+<dd><p>Operates on a single batch of data from the test set.
+In this step you’d normally generate examples or calculate anything of interest
+such as accuracy.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># the pseudocode for these calls</span>
+<span class="n">test_outs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">test_batch</span> <span class="ow">in</span> <span class="n">test_data</span><span class="p">:</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">test_step</span><span class="p">(</span><span class="n">test_batch</span><span class="p">)</span>
+    <span class="n">test_outs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+<span class="n">test_epoch_end</span><span class="p">(</span><span class="n">test_outs</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>batch</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code> | (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>, …) | [<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>, …]) – The output of your <code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code>. A tensor, tuple or list.</p></li>
+<li><p><strong>batch_idx</strong> (<em>int</em>) – The index of this batch.</p></li>
+<li><p><strong>dataloader_idx</strong> (<em>int</em>) – The index of the dataloader that produced this batch
+(only if multiple test dataloaders used).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>Any of.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Any object or value</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code> - Testing will skip to the next batch</p></li>
+</ul>
+</div></blockquote>
+</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># if you have one test dataloader:</span>
+<span class="k">def</span> <span class="nf">test_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">)</span>
+
+<span class="c1"># if you have multiple test dataloaders:</span>
+<span class="k">def</span> <span class="nf">test_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="n">dataloader_idx</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># CASE 1: A single test dataset</span>
+<span class="k">def</span> <span class="nf">test_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">batch</span>
+
+    <span class="c1"># implement your own</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+    <span class="c1"># log 6 example images</span>
+    <span class="c1"># or generated text... or whatever</span>
+    <span class="n">sample_imgs</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:</span><span class="mi">6</span><span class="p">]</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">make_grid</span><span class="p">(</span><span class="n">sample_imgs</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">experiment</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="s1">&#39;example_images&#39;</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># calculate acc</span>
+    <span class="n">labels_hat</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">test_acc</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="n">labels_hat</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1.0</span><span class="p">)</span>
+
+    <span class="c1"># log the outputs!</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">log_dict</span><span class="p">({</span><span class="s1">&#39;test_loss&#39;</span><span class="p">:</span> <span class="n">loss</span><span class="p">,</span> <span class="s1">&#39;test_acc&#39;</span><span class="p">:</span> <span class="n">test_acc</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>If you pass in multiple test dataloaders, <a class="reference internal" href="#mass_automation.formula.model.LSTM.test_step" title="mass_automation.formula.model.LSTM.test_step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">test_step()</span></code></a> will have an additional argument.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># CASE 2: multiple test dataloaders</span>
+<span class="k">def</span> <span class="nf">test_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="n">dataloader_idx</span><span class="p">):</span>
+    <span class="c1"># dataloader_idx tells you which dataset this is.</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you don’t need to test you don’t need to implement this method.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When the <a class="reference internal" href="#mass_automation.formula.model.LSTM.test_step" title="mass_automation.formula.model.LSTM.test_step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">test_step()</span></code></a> is called, the model has been put in eval mode and
+PyTorch gradients have been disabled. At the end of the test epoch, the model goes back
+to training mode and gradients are enabled.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mass_automation.formula.model.LSTM.train_epoch_end">
+<span class="sig-name descname"><span class="pre">train_epoch_end</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.model.LSTM.train_epoch_end" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mass_automation.formula.model.LSTM.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#mass_automation.formula.model.LSTM.training" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mass_automation.formula.model.LSTM.training_step">
+<span class="sig-name descname"><span class="pre">training_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.model.LSTM.training_step" title="Permalink to this definition">#</a></dt>
+<dd><p>Here you compute and return the training loss and some additional metrics for e.g.
+the progress bar or logger.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>batch</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code> | (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>, …) | [<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>, …]) – The output of your <code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code>. A tensor, tuple or list.</p></li>
+<li><p><strong>batch_idx</strong> (<em>int</em>) – Integer displaying index of this batch</p></li>
+<li><p><strong>optimizer_idx</strong> (<em>int</em>) – When using multiple optimizers, this argument will also be present.</p></li>
+<li><p><strong>hiddens</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>) – Passed in if
+<a href="#id1"><span class="problematic" id="id2">:paramref:`~pytorch_lightning.trainer.trainer.Trainer.truncated_bptt_steps`</span></a> &gt; 0.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>Any of.</p>
+<ul class="simple">
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code> - The loss tensor</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dict</span></code> - A dictionary. Can include any keys, but must include the key <code class="docutils literal notranslate"><span class="pre">'loss'</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code> - Training will skip to the next batch</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Returning <code class="docutils literal notranslate"><span class="pre">None</span></code> is currently not supported for multi-GPU or TPU, or with 16-bit precision enabled.</p>
+</div>
+<p>In this step you’d normally do the forward pass and calculate the loss for a batch.
+You can also do fancier things like multiple forward passes or something model specific.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">training_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">batch</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">loss</span>
+</pre></div>
+</div>
+<p>If you define multiple optimizers, this step will be called with an additional
+<code class="docutils literal notranslate"><span class="pre">optimizer_idx</span></code> parameter.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Multiple optimizers (e.g.: GANs)</span>
+<span class="k">def</span> <span class="nf">training_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="n">optimizer_idx</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">optimizer_idx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># do training_step with encoder</span>
+    <span class="k">if</span> <span class="n">optimizer_idx</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="c1"># do training_step with decoder</span>
+</pre></div>
+</div>
+<p>If you add truncated back propagation through time you will also get an additional
+argument with the hidden states of the previous step.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Truncated back-propagation through time</span>
+<span class="k">def</span> <span class="nf">training_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="n">hiddens</span><span class="p">):</span>
+    <span class="c1"># hiddens are the hidden states from the previous truncated backprop step</span>
+    <span class="o">...</span>
+    <span class="n">out</span><span class="p">,</span> <span class="n">hiddens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lstm</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">hiddens</span><span class="p">)</span>
+    <span class="o">...</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;loss&#39;</span><span class="p">:</span> <span class="n">loss</span><span class="p">,</span> <span class="s1">&#39;hiddens&#39;</span><span class="p">:</span> <span class="n">hiddens</span><span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The loss value shown in the progress bar is smoothed (averaged) over the last values,
+so it differs from the actual loss returned in train/validation step.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mass_automation.formula.model.LSTM.validation_epoch_end">
+<span class="sig-name descname"><span class="pre">validation_epoch_end</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.model.LSTM.validation_epoch_end" title="Permalink to this definition">#</a></dt>
+<dd><p>Called at the end of the validation epoch with the outputs of all validation steps.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># the pseudocode for these calls</span>
+<span class="n">val_outs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">val_batch</span> <span class="ow">in</span> <span class="n">val_data</span><span class="p">:</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">validation_step</span><span class="p">(</span><span class="n">val_batch</span><span class="p">)</span>
+    <span class="n">val_outs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+<span class="n">validation_epoch_end</span><span class="p">(</span><span class="n">val_outs</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>outputs</strong> – List of outputs you defined in <a class="reference internal" href="#mass_automation.formula.model.LSTM.validation_step" title="mass_automation.formula.model.LSTM.validation_step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">validation_step()</span></code></a>, or if there
+are multiple dataloaders, a list containing a list of outputs for each dataloader.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you didn’t define a <a class="reference internal" href="#mass_automation.formula.model.LSTM.validation_step" title="mass_automation.formula.model.LSTM.validation_step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">validation_step()</span></code></a>, this won’t be called.</p>
+</div>
+<p class="rubric">Examples</p>
+<p>With a single dataloader:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">validation_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val_step_outputs</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">out</span> <span class="ow">in</span> <span class="n">val_step_outputs</span><span class="p">:</span>
+        <span class="c1"># do something</span>
+</pre></div>
+</div>
+<p>With multiple dataloaders, <cite>outputs</cite> will be a list of lists. The outer list contains
+one entry per dataloader, while the inner list contains the individual outputs of
+each validation step for that dataloader.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">validation_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outputs</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">dataloader_output_result</span> <span class="ow">in</span> <span class="n">outputs</span><span class="p">:</span>
+        <span class="n">dataloader_outs</span> <span class="o">=</span> <span class="n">dataloader_output_result</span><span class="o">.</span><span class="n">dataloader_i_outputs</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;final_metric&#39;</span><span class="p">,</span> <span class="n">final_value</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mass_automation.formula.model.LSTM.validation_step">
+<span class="sig-name descname"><span class="pre">validation_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.model.LSTM.validation_step" title="Permalink to this definition">#</a></dt>
+<dd><p>Operates on a single batch of data from the validation set.
+In this step you’d might generate examples or calculate anything of interest like accuracy.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># the pseudocode for these calls</span>
+<span class="n">val_outs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">val_batch</span> <span class="ow">in</span> <span class="n">val_data</span><span class="p">:</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">validation_step</span><span class="p">(</span><span class="n">val_batch</span><span class="p">)</span>
+    <span class="n">val_outs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+<span class="n">validation_epoch_end</span><span class="p">(</span><span class="n">val_outs</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>batch</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code> | (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>, …) | [<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>, …]) – The output of your <code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code>. A tensor, tuple or list.</p></li>
+<li><p><strong>batch_idx</strong> (<em>int</em>) – The index of this batch</p></li>
+<li><p><strong>dataloader_idx</strong> (<em>int</em>) – The index of the dataloader that produced this batch
+(only if multiple val dataloaders used)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>Any of.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Any object or value</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code> - Validation will skip to the next batch</p></li>
+</ul>
+</div></blockquote>
+</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># pseudocode of order</span>
+<span class="n">val_outs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">val_batch</span> <span class="ow">in</span> <span class="n">val_data</span><span class="p">:</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">validation_step</span><span class="p">(</span><span class="n">val_batch</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">defined</span><span class="p">(</span><span class="s1">&#39;validation_step_end&#39;</span><span class="p">):</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">validation_step_end</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+    <span class="n">val_outs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+<span class="n">val_outs</span> <span class="o">=</span> <span class="n">validation_epoch_end</span><span class="p">(</span><span class="n">val_outs</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># if you have one val dataloader:</span>
+<span class="k">def</span> <span class="nf">validation_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">)</span>
+
+<span class="c1"># if you have multiple val dataloaders:</span>
+<span class="k">def</span> <span class="nf">validation_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="n">dataloader_idx</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># CASE 1: A single validation dataset</span>
+<span class="k">def</span> <span class="nf">validation_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">batch</span>
+
+    <span class="c1"># implement your own</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+    <span class="c1"># log 6 example images</span>
+    <span class="c1"># or generated text... or whatever</span>
+    <span class="n">sample_imgs</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:</span><span class="mi">6</span><span class="p">]</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">make_grid</span><span class="p">(</span><span class="n">sample_imgs</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">experiment</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="s1">&#39;example_images&#39;</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># calculate acc</span>
+    <span class="n">labels_hat</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">val_acc</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="n">labels_hat</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1.0</span><span class="p">)</span>
+
+    <span class="c1"># log the outputs!</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">log_dict</span><span class="p">({</span><span class="s1">&#39;val_loss&#39;</span><span class="p">:</span> <span class="n">loss</span><span class="p">,</span> <span class="s1">&#39;val_acc&#39;</span><span class="p">:</span> <span class="n">val_acc</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>If you pass in multiple val dataloaders, <a class="reference internal" href="#mass_automation.formula.model.LSTM.validation_step" title="mass_automation.formula.model.LSTM.validation_step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">validation_step()</span></code></a> will have an additional argument.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># CASE 2: multiple validation dataloaders</span>
+<span class="k">def</span> <span class="nf">validation_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="n">dataloader_idx</span><span class="p">):</span>
+    <span class="c1"># dataloader_idx tells you which dataset this is.</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you don’t need to validate you don’t need to implement this method.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When the <a class="reference internal" href="#mass_automation.formula.model.LSTM.validation_step" title="mass_automation.formula.model.LSTM.validation_step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">validation_step()</span></code></a> is called, the model has been put in eval mode
+and PyTorch gradients have been disabled. At the end of validation,
+the model goes back to training mode and gradients are enabled.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mass_automation.formula.model.LinearWithHidden">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mass_automation.formula.model.</span></span><span class="sig-name descname"><span class="pre">LinearWithHidden</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.model.LinearWithHidden" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mass_automation.formula.model.LinearWithHidden.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spectra</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.model.LinearWithHidden.forward" title="Permalink to this definition">#</a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mass_automation.formula.model.LinearWithHidden.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#mass_automation.formula.model.LinearWithHidden.training" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mass_automation.formula.model.MLP">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mass_automation.formula.model.</span></span><span class="sig-name descname"><span class="pre">MLP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'MSE'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Adam'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0002</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.model.MLP" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">LightningModule</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mass_automation.formula.model.MLP.configure_optimizers">
+<span class="sig-name descname"><span class="pre">configure_optimizers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.model.MLP.configure_optimizers" title="Permalink to this definition">#</a></dt>
+<dd><p>Choose what optimizers and learning-rate schedulers to use in your optimization.
+Normally you’d need one. But in the case of GANs or similar you might have multiple.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><p>Any of these 6 options.</p>
+<ul class="simple">
+<li><p>Single optimizer.</p></li>
+<li><p>List or Tuple - List of optimizers.</p></li>
+<li><p>Two lists - The first list has multiple optimizers, the second a list of LR schedulers (or lr_dict).</p></li>
+<li><p>Dictionary, with an ‘optimizer’ key, and (optionally) a ‘lr_scheduler’
+key whose value is a single LR scheduler or lr_dict.</p></li>
+<li><p>Tuple of dictionaries as described, with an optional ‘frequency’ key.</p></li>
+<li><p>None - Fit will run without any optimizer.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The ‘frequency’ value is an int corresponding to the number of sequential batches
+optimized with the specific optimizer. It should be given to none or to all of the optimizers.
+There is a difference between passing multiple optimizers in a list,
+and passing multiple optimizers in dictionaries with a frequency of 1:
+In the former case, all optimizers will operate on the given batch in each optimization step.
+In the latter, only one optimizer will operate on the given batch at every step.</p>
+<p>The lr_dict is a dictionary which contains the scheduler and its associated configuration.
+The default configuration is shown below.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;scheduler&#39;</span><span class="p">:</span> <span class="n">lr_scheduler</span><span class="p">,</span> <span class="c1"># The LR scheduler instance (required)</span>
+    <span class="s1">&#39;interval&#39;</span><span class="p">:</span> <span class="s1">&#39;epoch&#39;</span><span class="p">,</span> <span class="c1"># The unit of the scheduler&#39;s step size</span>
+    <span class="s1">&#39;frequency&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="c1"># The frequency of the scheduler</span>
+    <span class="s1">&#39;reduce_on_plateau&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="c1"># For ReduceLROnPlateau scheduler</span>
+    <span class="s1">&#39;monitor&#39;</span><span class="p">:</span> <span class="s1">&#39;val_loss&#39;</span><span class="p">,</span> <span class="c1"># Metric for ReduceLROnPlateau to monitor</span>
+    <span class="s1">&#39;strict&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="c1"># Whether to crash the training if `monitor` is not found</span>
+    <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="c1"># Custom name for LearningRateMonitor to use</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Only the <code class="docutils literal notranslate"><span class="pre">scheduler</span></code> key is required, the rest will be set to the defaults above.</p>
+</div>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># most cases</span>
+<span class="k">def</span> <span class="nf">configure_optimizers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">opt</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">opt</span>
+
+<span class="c1"># multiple optimizer case (e.g.: GAN)</span>
+<span class="k">def</span> <span class="nf">configure_optimizers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">generator_opt</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_gen</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+    <span class="n">disriminator_opt</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_disc</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">generator_opt</span><span class="p">,</span> <span class="n">disriminator_opt</span>
+
+<span class="c1"># example with learning rate schedulers</span>
+<span class="k">def</span> <span class="nf">configure_optimizers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">generator_opt</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_gen</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+    <span class="n">disriminator_opt</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_disc</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
+    <span class="n">discriminator_sched</span> <span class="o">=</span> <span class="n">CosineAnnealing</span><span class="p">(</span><span class="n">discriminator_opt</span><span class="p">,</span> <span class="n">T_max</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">generator_opt</span><span class="p">,</span> <span class="n">disriminator_opt</span><span class="p">],</span> <span class="p">[</span><span class="n">discriminator_sched</span><span class="p">]</span>
+
+<span class="c1"># example with step-based learning rate schedulers</span>
+<span class="k">def</span> <span class="nf">configure_optimizers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">gen_opt</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_gen</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+    <span class="n">dis_opt</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_disc</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
+    <span class="n">gen_sched</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;scheduler&#39;</span><span class="p">:</span> <span class="n">ExponentialLR</span><span class="p">(</span><span class="n">gen_opt</span><span class="p">,</span> <span class="mf">0.99</span><span class="p">),</span>
+                 <span class="s1">&#39;interval&#39;</span><span class="p">:</span> <span class="s1">&#39;step&#39;</span><span class="p">}</span>  <span class="c1"># called after each training step</span>
+    <span class="n">dis_sched</span> <span class="o">=</span> <span class="n">CosineAnnealing</span><span class="p">(</span><span class="n">discriminator_opt</span><span class="p">,</span> <span class="n">T_max</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># called every epoch</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">gen_opt</span><span class="p">,</span> <span class="n">dis_opt</span><span class="p">],</span> <span class="p">[</span><span class="n">gen_sched</span><span class="p">,</span> <span class="n">dis_sched</span><span class="p">]</span>
+
+<span class="c1"># example with optimizer frequencies</span>
+<span class="c1"># see training procedure in `Improved Training of Wasserstein GANs`, Algorithm 1</span>
+<span class="c1"># https://arxiv.org/abs/1704.00028</span>
+<span class="k">def</span> <span class="nf">configure_optimizers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">gen_opt</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_gen</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+    <span class="n">dis_opt</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_disc</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
+    <span class="n">n_critic</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="p">{</span><span class="s1">&#39;optimizer&#39;</span><span class="p">:</span> <span class="n">dis_opt</span><span class="p">,</span> <span class="s1">&#39;frequency&#39;</span><span class="p">:</span> <span class="n">n_critic</span><span class="p">},</span>
+        <span class="p">{</span><span class="s1">&#39;optimizer&#39;</span><span class="p">:</span> <span class="n">gen_opt</span><span class="p">,</span> <span class="s1">&#39;frequency&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some things to know:</p>
+<ul>
+<li><p>Lightning calls <code class="docutils literal notranslate"><span class="pre">.backward()</span></code> and <code class="docutils literal notranslate"><span class="pre">.step()</span></code> on each optimizer
+and learning rate scheduler as needed.</p></li>
+<li><p>If you use 16-bit precision (<code class="docutils literal notranslate"><span class="pre">precision=16</span></code>), Lightning will automatically
+handle the optimizers for you.</p></li>
+<li><p>If you use multiple optimizers, <a class="reference internal" href="#mass_automation.formula.model.MLP.training_step" title="mass_automation.formula.model.MLP.training_step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">training_step()</span></code></a> will have an additional
+<code class="docutils literal notranslate"><span class="pre">optimizer_idx</span></code> parameter.</p></li>
+<li><p>If you use LBFGS Lightning handles the closure function automatically for you.</p></li>
+<li><p>If you use multiple optimizers, gradients will be calculated only
+for the parameters of current optimizer at each training step.</p></li>
+<li><p>If you need to control how often those optimizers step or override the
+default <code class="docutils literal notranslate"><span class="pre">.step()</span></code> schedule, override the <code class="xref py py-meth docutils literal notranslate"><span class="pre">optimizer_step()</span></code> hook.</p></li>
+<li><p>If you only want to call a learning rate scheduler every <code class="docutils literal notranslate"><span class="pre">x</span></code> step or epoch,
+or want to monitor a custom metric, you can specify these in a lr_dict:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;scheduler&#39;</span><span class="p">:</span> <span class="n">lr_scheduler</span><span class="p">,</span>
+    <span class="s1">&#39;interval&#39;</span><span class="p">:</span> <span class="s1">&#39;step&#39;</span><span class="p">,</span>  <span class="c1"># or &#39;epoch&#39;</span>
+    <span class="s1">&#39;monitor&#39;</span><span class="p">:</span> <span class="s1">&#39;val_f1&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;frequency&#39;</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mass_automation.formula.model.MLP.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.model.MLP.forward" title="Permalink to this definition">#</a></dt>
+<dd><p>Same as <code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.nn.Module.forward()</span></code>, however in Lightning you want this to define
+the operations you want to use for prediction (i.e.: on a server or as a feature extractor).</p>
+<p>Normally you’d call <code class="docutils literal notranslate"><span class="pre">self()</span></code> from your <a class="reference internal" href="#mass_automation.formula.model.MLP.training_step" title="mass_automation.formula.model.MLP.training_step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">training_step()</span></code></a> method.
+This makes it easy to write a complex system for training with the outputs
+you’d want in a prediction setting.</p>
+<p>You may also find the <code class="xref py py-func docutils literal notranslate"><span class="pre">auto_move_data()</span></code> decorator useful
+when using the module outside Lightning in a production setting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>*args</strong> – Whatever you decide to pass into the forward method.</p></li>
+<li><p><strong>**kwargs</strong> – Keyword arguments are also possible.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Predicted output</p>
+</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># example if we were using this model as a feature extractor</span>
+<span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="n">feature_maps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">convnet</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">feature_maps</span>
+
+<span class="k">def</span> <span class="nf">training_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">batch</span>
+    <span class="n">feature_maps</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">logits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span><span class="p">(</span><span class="n">feature_maps</span><span class="p">)</span>
+
+    <span class="c1"># ...</span>
+    <span class="k">return</span> <span class="n">loss</span>
+
+<span class="c1"># splitting it this way allows model to be used a feature extractor</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">MyModelAbove</span><span class="p">()</span>
+
+<span class="n">inputs</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">get_request</span><span class="p">()</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+<span class="n">server</span><span class="o">.</span><span class="n">write_results</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+
+<span class="c1"># -------------</span>
+<span class="c1"># This is in stark contrast to torch.nn.Module where normally you would have this:</span>
+<span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">batch</span>
+    <span class="n">feature_maps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">convnet</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">logits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span><span class="p">(</span><span class="n">feature_maps</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">logits</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mass_automation.formula.model.MLP.test_epoch_end">
+<span class="sig-name descname"><span class="pre">test_epoch_end</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.model.MLP.test_epoch_end" title="Permalink to this definition">#</a></dt>
+<dd><p>Called at the end of a test epoch with the output of all test steps.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># the pseudocode for these calls</span>
+<span class="n">test_outs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">test_batch</span> <span class="ow">in</span> <span class="n">test_data</span><span class="p">:</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">test_step</span><span class="p">(</span><span class="n">test_batch</span><span class="p">)</span>
+    <span class="n">test_outs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+<span class="n">test_epoch_end</span><span class="p">(</span><span class="n">test_outs</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>outputs</strong> – List of outputs you defined in <code class="xref py py-meth docutils literal notranslate"><span class="pre">test_step_end()</span></code>, or if there
+are multiple dataloaders, a list containing a list of outputs for each dataloader</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you didn’t define a <a class="reference internal" href="#mass_automation.formula.model.MLP.test_step" title="mass_automation.formula.model.MLP.test_step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">test_step()</span></code></a>, this won’t be called.</p>
+</div>
+<p class="rubric">Examples</p>
+<p>With a single dataloader:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outputs</span><span class="p">):</span>
+    <span class="c1"># do something with the outputs of all test batches</span>
+    <span class="n">all_test_preds</span> <span class="o">=</span> <span class="n">test_step_outputs</span><span class="o">.</span><span class="n">predictions</span>
+
+    <span class="n">some_result</span> <span class="o">=</span> <span class="n">calc_all_results</span><span class="p">(</span><span class="n">all_test_preds</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">some_result</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>With multiple dataloaders, <cite>outputs</cite> will be a list of lists. The outer list contains
+one entry per dataloader, while the inner list contains the individual outputs of
+each test step for that dataloader.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outputs</span><span class="p">):</span>
+    <span class="n">final_value</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">dataloader_outputs</span> <span class="ow">in</span> <span class="n">outputs</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">test_step_out</span> <span class="ow">in</span> <span class="n">dataloader_outputs</span><span class="p">:</span>
+            <span class="c1"># do something</span>
+            <span class="n">final_value</span> <span class="o">+=</span> <span class="n">test_step_out</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;final_metric&#39;</span><span class="p">,</span> <span class="n">final_value</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mass_automation.formula.model.MLP.test_step">
+<span class="sig-name descname"><span class="pre">test_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.model.MLP.test_step" title="Permalink to this definition">#</a></dt>
+<dd><p>Operates on a single batch of data from the test set.
+In this step you’d normally generate examples or calculate anything of interest
+such as accuracy.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># the pseudocode for these calls</span>
+<span class="n">test_outs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">test_batch</span> <span class="ow">in</span> <span class="n">test_data</span><span class="p">:</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">test_step</span><span class="p">(</span><span class="n">test_batch</span><span class="p">)</span>
+    <span class="n">test_outs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+<span class="n">test_epoch_end</span><span class="p">(</span><span class="n">test_outs</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>batch</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code> | (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>, …) | [<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>, …]) – The output of your <code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code>. A tensor, tuple or list.</p></li>
+<li><p><strong>batch_idx</strong> (<em>int</em>) – The index of this batch.</p></li>
+<li><p><strong>dataloader_idx</strong> (<em>int</em>) – The index of the dataloader that produced this batch
+(only if multiple test dataloaders used).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>Any of.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Any object or value</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code> - Testing will skip to the next batch</p></li>
+</ul>
+</div></blockquote>
+</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># if you have one test dataloader:</span>
+<span class="k">def</span> <span class="nf">test_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">)</span>
+
+<span class="c1"># if you have multiple test dataloaders:</span>
+<span class="k">def</span> <span class="nf">test_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="n">dataloader_idx</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># CASE 1: A single test dataset</span>
+<span class="k">def</span> <span class="nf">test_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">batch</span>
+
+    <span class="c1"># implement your own</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+    <span class="c1"># log 6 example images</span>
+    <span class="c1"># or generated text... or whatever</span>
+    <span class="n">sample_imgs</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:</span><span class="mi">6</span><span class="p">]</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">make_grid</span><span class="p">(</span><span class="n">sample_imgs</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">experiment</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="s1">&#39;example_images&#39;</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># calculate acc</span>
+    <span class="n">labels_hat</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">test_acc</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="n">labels_hat</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1.0</span><span class="p">)</span>
+
+    <span class="c1"># log the outputs!</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">log_dict</span><span class="p">({</span><span class="s1">&#39;test_loss&#39;</span><span class="p">:</span> <span class="n">loss</span><span class="p">,</span> <span class="s1">&#39;test_acc&#39;</span><span class="p">:</span> <span class="n">test_acc</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>If you pass in multiple test dataloaders, <a class="reference internal" href="#mass_automation.formula.model.MLP.test_step" title="mass_automation.formula.model.MLP.test_step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">test_step()</span></code></a> will have an additional argument.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># CASE 2: multiple test dataloaders</span>
+<span class="k">def</span> <span class="nf">test_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="n">dataloader_idx</span><span class="p">):</span>
+    <span class="c1"># dataloader_idx tells you which dataset this is.</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you don’t need to test you don’t need to implement this method.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When the <a class="reference internal" href="#mass_automation.formula.model.MLP.test_step" title="mass_automation.formula.model.MLP.test_step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">test_step()</span></code></a> is called, the model has been put in eval mode and
+PyTorch gradients have been disabled. At the end of the test epoch, the model goes back
+to training mode and gradients are enabled.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mass_automation.formula.model.MLP.train_epoch_end">
+<span class="sig-name descname"><span class="pre">train_epoch_end</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.model.MLP.train_epoch_end" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mass_automation.formula.model.MLP.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#mass_automation.formula.model.MLP.training" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mass_automation.formula.model.MLP.training_step">
+<span class="sig-name descname"><span class="pre">training_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.model.MLP.training_step" title="Permalink to this definition">#</a></dt>
+<dd><p>Here you compute and return the training loss and some additional metrics for e.g.
+the progress bar or logger.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>batch</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code> | (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>, …) | [<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>, …]) – The output of your <code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code>. A tensor, tuple or list.</p></li>
+<li><p><strong>batch_idx</strong> (<em>int</em>) – Integer displaying index of this batch</p></li>
+<li><p><strong>optimizer_idx</strong> (<em>int</em>) – When using multiple optimizers, this argument will also be present.</p></li>
+<li><p><strong>hiddens</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>) – Passed in if
+<a href="#id3"><span class="problematic" id="id4">:paramref:`~pytorch_lightning.trainer.trainer.Trainer.truncated_bptt_steps`</span></a> &gt; 0.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>Any of.</p>
+<ul class="simple">
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code> - The loss tensor</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dict</span></code> - A dictionary. Can include any keys, but must include the key <code class="docutils literal notranslate"><span class="pre">'loss'</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code> - Training will skip to the next batch</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Returning <code class="docutils literal notranslate"><span class="pre">None</span></code> is currently not supported for multi-GPU or TPU, or with 16-bit precision enabled.</p>
+</div>
+<p>In this step you’d normally do the forward pass and calculate the loss for a batch.
+You can also do fancier things like multiple forward passes or something model specific.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">training_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">batch</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">loss</span>
+</pre></div>
+</div>
+<p>If you define multiple optimizers, this step will be called with an additional
+<code class="docutils literal notranslate"><span class="pre">optimizer_idx</span></code> parameter.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Multiple optimizers (e.g.: GANs)</span>
+<span class="k">def</span> <span class="nf">training_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="n">optimizer_idx</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">optimizer_idx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># do training_step with encoder</span>
+    <span class="k">if</span> <span class="n">optimizer_idx</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="c1"># do training_step with decoder</span>
+</pre></div>
+</div>
+<p>If you add truncated back propagation through time you will also get an additional
+argument with the hidden states of the previous step.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Truncated back-propagation through time</span>
+<span class="k">def</span> <span class="nf">training_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="n">hiddens</span><span class="p">):</span>
+    <span class="c1"># hiddens are the hidden states from the previous truncated backprop step</span>
+    <span class="o">...</span>
+    <span class="n">out</span><span class="p">,</span> <span class="n">hiddens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lstm</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">hiddens</span><span class="p">)</span>
+    <span class="o">...</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;loss&#39;</span><span class="p">:</span> <span class="n">loss</span><span class="p">,</span> <span class="s1">&#39;hiddens&#39;</span><span class="p">:</span> <span class="n">hiddens</span><span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The loss value shown in the progress bar is smoothed (averaged) over the last values,
+so it differs from the actual loss returned in train/validation step.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mass_automation.formula.model.MLP.validation_epoch_end">
+<span class="sig-name descname"><span class="pre">validation_epoch_end</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.model.MLP.validation_epoch_end" title="Permalink to this definition">#</a></dt>
+<dd><p>Called at the end of the validation epoch with the outputs of all validation steps.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># the pseudocode for these calls</span>
+<span class="n">val_outs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">val_batch</span> <span class="ow">in</span> <span class="n">val_data</span><span class="p">:</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">validation_step</span><span class="p">(</span><span class="n">val_batch</span><span class="p">)</span>
+    <span class="n">val_outs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+<span class="n">validation_epoch_end</span><span class="p">(</span><span class="n">val_outs</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>outputs</strong> – List of outputs you defined in <a class="reference internal" href="#mass_automation.formula.model.MLP.validation_step" title="mass_automation.formula.model.MLP.validation_step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">validation_step()</span></code></a>, or if there
+are multiple dataloaders, a list containing a list of outputs for each dataloader.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you didn’t define a <a class="reference internal" href="#mass_automation.formula.model.MLP.validation_step" title="mass_automation.formula.model.MLP.validation_step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">validation_step()</span></code></a>, this won’t be called.</p>
+</div>
+<p class="rubric">Examples</p>
+<p>With a single dataloader:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">validation_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val_step_outputs</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">out</span> <span class="ow">in</span> <span class="n">val_step_outputs</span><span class="p">:</span>
+        <span class="c1"># do something</span>
+</pre></div>
+</div>
+<p>With multiple dataloaders, <cite>outputs</cite> will be a list of lists. The outer list contains
+one entry per dataloader, while the inner list contains the individual outputs of
+each validation step for that dataloader.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">validation_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outputs</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">dataloader_output_result</span> <span class="ow">in</span> <span class="n">outputs</span><span class="p">:</span>
+        <span class="n">dataloader_outs</span> <span class="o">=</span> <span class="n">dataloader_output_result</span><span class="o">.</span><span class="n">dataloader_i_outputs</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;final_metric&#39;</span><span class="p">,</span> <span class="n">final_value</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mass_automation.formula.model.MLP.validation_step">
+<span class="sig-name descname"><span class="pre">validation_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.model.MLP.validation_step" title="Permalink to this definition">#</a></dt>
+<dd><p>Operates on a single batch of data from the validation set.
+In this step you’d might generate examples or calculate anything of interest like accuracy.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># the pseudocode for these calls</span>
+<span class="n">val_outs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">val_batch</span> <span class="ow">in</span> <span class="n">val_data</span><span class="p">:</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">validation_step</span><span class="p">(</span><span class="n">val_batch</span><span class="p">)</span>
+    <span class="n">val_outs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+<span class="n">validation_epoch_end</span><span class="p">(</span><span class="n">val_outs</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>batch</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code> | (<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>, …) | [<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>, …]) – The output of your <code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code>. A tensor, tuple or list.</p></li>
+<li><p><strong>batch_idx</strong> (<em>int</em>) – The index of this batch</p></li>
+<li><p><strong>dataloader_idx</strong> (<em>int</em>) – The index of the dataloader that produced this batch
+(only if multiple val dataloaders used)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>Any of.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Any object or value</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code> - Validation will skip to the next batch</p></li>
+</ul>
+</div></blockquote>
+</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># pseudocode of order</span>
+<span class="n">val_outs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">val_batch</span> <span class="ow">in</span> <span class="n">val_data</span><span class="p">:</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">validation_step</span><span class="p">(</span><span class="n">val_batch</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">defined</span><span class="p">(</span><span class="s1">&#39;validation_step_end&#39;</span><span class="p">):</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">validation_step_end</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+    <span class="n">val_outs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+<span class="n">val_outs</span> <span class="o">=</span> <span class="n">validation_epoch_end</span><span class="p">(</span><span class="n">val_outs</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># if you have one val dataloader:</span>
+<span class="k">def</span> <span class="nf">validation_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">)</span>
+
+<span class="c1"># if you have multiple val dataloaders:</span>
+<span class="k">def</span> <span class="nf">validation_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="n">dataloader_idx</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># CASE 1: A single validation dataset</span>
+<span class="k">def</span> <span class="nf">validation_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">batch</span>
+
+    <span class="c1"># implement your own</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+    <span class="c1"># log 6 example images</span>
+    <span class="c1"># or generated text... or whatever</span>
+    <span class="n">sample_imgs</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:</span><span class="mi">6</span><span class="p">]</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">make_grid</span><span class="p">(</span><span class="n">sample_imgs</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">experiment</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="s1">&#39;example_images&#39;</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># calculate acc</span>
+    <span class="n">labels_hat</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">val_acc</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="n">labels_hat</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1.0</span><span class="p">)</span>
+
+    <span class="c1"># log the outputs!</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">log_dict</span><span class="p">({</span><span class="s1">&#39;val_loss&#39;</span><span class="p">:</span> <span class="n">loss</span><span class="p">,</span> <span class="s1">&#39;val_acc&#39;</span><span class="p">:</span> <span class="n">val_acc</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>If you pass in multiple val dataloaders, <a class="reference internal" href="#mass_automation.formula.model.MLP.validation_step" title="mass_automation.formula.model.MLP.validation_step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">validation_step()</span></code></a> will have an additional argument.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># CASE 2: multiple validation dataloaders</span>
+<span class="k">def</span> <span class="nf">validation_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="n">dataloader_idx</span><span class="p">):</span>
+    <span class="c1"># dataloader_idx tells you which dataset this is.</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you don’t need to validate you don’t need to implement this method.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When the <a class="reference internal" href="#mass_automation.formula.model.MLP.validation_step" title="mass_automation.formula.model.MLP.validation_step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">validation_step()</span></code></a> is called, the model has been put in eval mode
+and PyTorch gradients have been disabled. At the end of validation,
+the model goes back to training mode and gradients are enabled.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mass_automation.formula.model.WeightedMSELoss">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mass_automation.formula.model.</span></span><span class="sig-name descname"><span class="pre">WeightedMSELoss</span></span><a class="headerlink" href="#mass_automation.formula.model.WeightedMSELoss" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mass_automation.formula.model.WeightedMSELoss.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_hat</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.model.WeightedMSELoss.forward" title="Permalink to this definition">#</a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mass_automation.formula.model.WeightedMSELoss.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#mass_automation.formula.model.WeightedMSELoss.training" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mass_automation.formula.model.log_elementwise">
+<span class="sig-prename descclassname"><span class="pre">mass_automation.formula.model.</span></span><span class="sig-name descname"><span class="pre">log_elementwise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.model.log_elementwise" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-mass_automation.formula.plot">
+<span id="mass-automation-formula-plot-module"></span><h2>mass_automation.formula.plot module<a class="headerlink" href="#module-mass_automation.formula.plot" title="Permalink to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="mass_automation.formula.plot.plot_compare">
+<span class="sig-prename descclassname"><span class="pre">mass_automation.formula.plot.</span></span><span class="sig-name descname"><span class="pre">plot_compare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spectrum</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="mass_automation.html#mass_automation.experiment.Spectrum" title="mass_automation.experiment.Spectrum"><span class="pre">Spectrum</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">formula</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mass_automation.formula.Formula" title="mass_automation.formula.Formula"><span class="pre">Formula</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">cal_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.006</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.003</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_peaks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_masses</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.plot.plot_compare" title="Permalink to this definition">#</a></dt>
+<dd><p>Spectra comparison visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spectrum</strong> (<a class="reference internal" href="mass_automation.html#mass_automation.experiment.Spectrum" title="mass_automation.experiment.Spectrum"><em>Spectrum</em></a>) – The spectrum, where algorithm tries to detect the substance.</p></li>
+<li><p><strong>formula</strong> (<a class="reference internal" href="#mass_automation.formula.Formula" title="mass_automation.formula.Formula"><em>Formula</em></a>) – The Formula class of the substance.</p></li>
+<li><p><strong>cal_error</strong> (<em>float</em>) – The radius of the first peak’ vicinity (default is 0.006).</p></li>
+<li><p><strong>dist_error</strong> (<em>float</em>) – The possible error in distance between the peaks, characterizes the radius of the second and the next
+peak’s vicinity (default is 0.001).</p></li>
+<li><p><strong>distance</strong> (<em>int</em>) – The parameter, used in peak finding algorithm. (default is 50).</p></li>
+<li><p><strong>max_peaks</strong> (<em>int</em>) – Limits the number of possible first peaks (default is 5).</p></li>
+<li><p><strong>path</strong> (<em>str</em>) – Saves plotting figure in png with dpi = 300.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-mass_automation.formula">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-mass_automation.formula" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="mass_automation.formula.Formula">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mass_automation.formula.</span></span><span class="sig-name descname"><span class="pre">Formula</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">formula</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">charge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.Formula" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class used to represent Formula.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mass_automation.formula.Formula.str_formula">
+<span class="sig-name descname"><span class="pre">str_formula</span></span><a class="headerlink" href="#mass_automation.formula.Formula.str_formula" title="Permalink to this definition">#</a></dt>
+<dd><p>The molecular formula of the substance. Example: ‘C2H5OH’.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mass_automation.formula.Formula.dict_formula">
+<span class="sig-name descname"><span class="pre">dict_formula</span></span><a class="headerlink" href="#mass_automation.formula.Formula.dict_formula" title="Permalink to this definition">#</a></dt>
+<dd><p>The dictionary, which corresponds to the formula.
+Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;C&#39;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s1">&#39;H&#39;</span> <span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="s1">&#39;O&#39;</span> <span class="p">:</span> <span class="mi">1</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mass_automation.formula.Formula.formula">
+<span class="sig-name descname"><span class="pre">formula</span></span><a class="headerlink" href="#mass_automation.formula.Formula.formula" title="Permalink to this definition">#</a></dt>
+<dd><p>Dictionary or string, depending on the argument in __init__.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str or dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mass_automation.formula.Formula.charge">
+<span class="sig-name descname"><span class="pre">charge</span></span><a class="headerlink" href="#mass_automation.formula.Formula.charge" title="Permalink to this definition">#</a></dt>
+<dd><p>The charge of the molecule.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mass_automation.formula.Formula.monoisotopic_mass">
+<span class="sig-name descname"><span class="pre">monoisotopic_mass</span></span><a class="headerlink" href="#mass_automation.formula.Formula.monoisotopic_mass" title="Permalink to this definition">#</a></dt>
+<dd><p>The mass of the monoisotopic peak.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mass_automation.formula.Formula.isodistribution">
+<span class="sig-name descname"><span class="pre">isodistribution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">side_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#mass_automation.formula.Formula.isodistribution" title="Permalink to this definition">#</a></dt>
+<dd><p>Creates isotopic distribution.</p>
+<p>Gives back a tuple with masses and peaks of the theoretical isotopic distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>side_threshold</strong> (<em>float</em>) – Minimal required relative intensity of side isotopologues to the most intensive. (default is 0.001)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuple[np.ndarray, np.ndarray]</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – Raises when isotopic distribution can not be constructed because of specific formula names.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mass_automation.formula.Formula.vector">
+<span class="sig-name descname"><span class="pre">vector</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.Formula.vector" title="Permalink to this definition">#</a></dt>
+<dd><p>Converts formula into a vector of quantities with length of number elements in the periodic table</p>
+<p><strong>Attention:</strong> may not work for elements like Fl, as pyteomics does not recognize them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Resulting vector</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mass_automation.formula.RealIsotopicDistribution">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mass_automation.formula.</span></span><span class="sig-name descname"><span class="pre">RealIsotopicDistribution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spectrum</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="mass_automation.html#mass_automation.experiment.Spectrum" title="mass_automation.experiment.Spectrum"><span class="pre">Spectrum</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">peak_indices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mass_automation.formula.RealIsotopicDistribution" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mass_automation.formula.RealIsotopicDistribution.get_monoisotopic">
+<span class="sig-name descname"><span class="pre">get_monoisotopic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#mass_automation.formula.RealIsotopicDistribution.get_monoisotopic" title="Permalink to this definition">#</a></dt>
+<dd><p>Find monoisotopic peak</p>
+<p>Currently “monoisotopic” is the first one. <strong>THAT IS NO TRUE FOR SOME ELEMENTS.</strong>
+Rewrite <code class="docutils literal notranslate"><span class="pre">get_representation</span></code> method accordingly if changing</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Index to the monoisotopic peak</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mass_automation.formula.RealIsotopicDistribution.get_representation">
+<span class="sig-name descname"><span class="pre">get_representation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta:</span> <span class="pre">~typing.Optional[float]</span> <span class="pre">=</span> <span class="pre">0.025</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length:</span> <span class="pre">~typing.Optional[int]</span> <span class="pre">=</span> <span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f:</span> <span class="pre">~typing.Optional[~typing.Callable]</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">amax&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode='middle'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vectorization_method='simple'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma:</span> <span class="pre">~typing.Optional[float]</span> <span class="pre">=</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#mass_automation.formula.RealIsotopicDistribution.get_representation" title="Permalink to this definition">#</a></dt>
+<dd><p>Calculates vector representation for the isotopic distribution</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>delta</strong> (<em>float</em>) – Size of peak vicinity</p></li>
+<li><p><strong>length</strong> (<em>int</em>) – Number of items in resulting feature vector¬</p></li>
+<li><p><strong>mode</strong> (<em>str</em>) – <p>Mode of vectorization. One of the following:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">middle</span></code> — the most intensive in the middle</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">monoisotopic</span></code> — some part of the spectrum left to the monoisotopic peak, incremented, by neuron mass</p></li>
+</ul>
+</p></li>
+<li><p><strong>vectorization_method</strong> (<em>str</em>) – <p>Method of vectorization. One of the folloring:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">simple</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">convolution</span></code></p></li>
+</ul>
+</p></li>
+<li><p><strong>sigma</strong> (<em>float</em>) – A parameter for the vectorization method</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Representations for each peak</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[Tuple[np.ndarray, float]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="mass_automation.sample_identification.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">mass_automation.sample_identification package</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="mass_automation.deisotoping.html">
+              <svg><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">mass_automation.deisotoping package</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2021, Daniil A. Boiko, Konstantin S. Kozlov, Valentine P. Ananikov
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">mass_automation.formula package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-mass_automation.formula.augmentations">mass_automation.formula.augmentations module</a></li>
+<li><a class="reference internal" href="#module-mass_automation.formula.check_formula">mass_automation.formula.check_formula module</a></li>
+<li><a class="reference internal" href="#module-mass_automation.formula.data">mass_automation.formula.data module</a></li>
+<li><a class="reference internal" href="#module-mass_automation.formula.determination">mass_automation.formula.determination module</a></li>
+<li><a class="reference internal" href="#module-mass_automation.formula.model">mass_automation.formula.model module</a></li>
+<li><a class="reference internal" href="#module-mass_automation.formula.plot">mass_automation.formula.plot module</a></li>
+<li><a class="reference internal" href="#module-mass_automation.formula">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/scripts/furo.js"></script>
+    </body>
+</html>
