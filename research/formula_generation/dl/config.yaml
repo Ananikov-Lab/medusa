@@ -1,0 +1,47 @@
+# Model architecture and optimization parameters
+
+model_type: LSTM
+
+lstm_in_size: 100
+lstm_hidden_size: 256
+lstm_num_layers: 3
+lstm_bidirectional: True
+lstm_dropout: 0.5
+
+decoder_hidden_size: 128
+
+loss: CE
+opt: Adam
+lr: 0.0002
+
+# Training dataset parameters
+
+training:
+  bs: 1024
+
+# Augmentation params
+
+augmentation:
+  shift:
+    - -10
+    - 10
+  add:
+    - -0.1
+    - 0.1
+  random_noise: 0.1
+  scale:
+    - 0.9
+    - 1.2
+  dropping_aug:
+    - 0.05
+    - 0.1
+
+# Data sources and formula converters
+
+data:
+  converter: vector
+  converter_settings:
+    normalizer: sum
+  is_classifier: True
+
+  representations: /home/boiko/mra/training_data.tsv.gz

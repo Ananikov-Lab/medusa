@@ -1,0 +1,46 @@
+# Model architecture and optimization parameters
+
+in_size: 500
+hidden_size: 256
+
+model_type: MLP
+
+get_first: 5 # not used for LSTM
+
+activation: false
+
+loss: MSE
+opt: Adam
+lr: 0.0002
+
+# Training dataset parameters
+
+training:
+  bs: 1024
+
+# Augmentation params
+
+augmentation:
+  shift:
+    - -2
+    - 2
+  add:
+    - -0.05
+    - 0.05
+  random_noise: 0.0
+  scale:
+    - 0.99
+    - 1.01
+  dropping_aug:
+    - 0.05
+    - 0.1
+
+# Data sources and formula converters
+
+data:
+  converter: vector
+  converter_settings:
+    normalizer: means
+  is_classifier: False
+
+  representations: /home/boiko/mra/training_data.tsv.gz
