@@ -131,4 +131,4 @@ TBA
 
 ## How to cite it?
 
-TBA
+Boiko D.A., Kozlov K.S., Burykina J.V., Ilyushenkova V.V., Ananikov V.P., "Fully Automated Unconstrained Analysis of High-Resolution Mass Spectrometry Data with Machine Learning", *J. Am. Chem. Soc.*, **2022**, ASAP https://doi.org/10.1021/jacs.2c03631
