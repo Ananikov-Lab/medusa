@@ -15,7 +15,7 @@ approaching the long-standing inverse spectral problem. The workflow was success
 ion analysis in protein sequencing for proteomics, analysis of the natural samples for life sciences, and study of the
 cross-coupling catalytic system for chemistry.
 
-[Follow us](ananikovlab.ru)
+[Follow us](http://ananikovlab.ru)
 
 ## How to use it?
 
@@ -127,7 +127,7 @@ not observable, some elements still can be recognised, but model prediction will
 
 ## Where is the data?
 
-TBA
+All used data is available on [MEGA](https://mega.nz/folder/vyAWgbrb#rO5lMqKdYe9dcOzIzHNQPQ). The tea dataset is currently used in the ongoing research project and can be provided upon request.
 
 ## How to cite it?
 
