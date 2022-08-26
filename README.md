@@ -127,7 +127,7 @@ not observable, some elements still can be recognised, but model prediction will
 
 ## Where is the data?
 
-All used data is available on [MEGA](https://mega.nz/folder/vyAWgbrb#rO5lMqKdYe9dcOzIzHNQPQ). The tea dataset is currently used in the ongoing research project and can be provided upon request.
+All used data (including files required to run tests) is available on [MEGA](https://mega.nz/folder/vyAWgbrb#rO5lMqKdYe9dcOzIzHNQPQ). The tea dataset is currently used in the ongoing research project and can be provided upon request.
 
 ## How to cite it?
 

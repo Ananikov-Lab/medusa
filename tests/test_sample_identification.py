@@ -15,7 +15,7 @@ def take_code(filename):
     return code
 
 
-root = os.path.abspath('.')
+root = os.path.abspath('..')
 path = os.path.join(root, 'data', 'pca_tables', 'Tea_table.csv')
 df = pd.read_csv(path, encoding='Windows-1251', sep=';')
 class_decoder = df['Type']
@@ -28,7 +28,7 @@ colormapper = {
     'black': 'yellow'
 }
 
-root = os.path.abspath('.')
+root = os.path.abspath('..')
 spec_vecs_path = os.path.join(root, 'data', 'plot_pca_files', 'spectra_vecs_dictionary.pkl')
 pickle_file = open(spec_vecs_path, 'rb')
 spec_vecs = pkl.load(pickle_file)
