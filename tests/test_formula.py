@@ -83,7 +83,7 @@ class TestDelIsotopologues:
 
 class TestCheckFormula:
     def test_check_simple(self):
-        root = os.path.abspath('..')
+        root = os.path.abspath('.')
         path = os.path.join(root, 'data', 'testing_spectra', 'D3_3_01_270_C27H36N2H.pkl')
         with open(path, 'rb') as f:
             spec = pkl.load(f)
@@ -95,7 +95,7 @@ class TestCheckFormula:
         gc.collect()
 
     def test_check_pd(self):
-        root = os.path.abspath('..')
+        root = os.path.abspath('.')
         path = os.path.join(root, 'data', 'testing_spectra', 'D1_1_01_268_C27H36N2PdC5H5NCH3CNCl.pkl')
 
         with open(path, 'rb') as f:
@@ -108,7 +108,7 @@ class TestCheckFormula:
         gc.collect()
 
     def test_check_ni(self):
-        root = os.path.abspath('..')
+        root = os.path.abspath('.')
         path = os.path.join(root, 'data', 'testing_spectra', 'D18_18_01_206_C7H10NNiO2.pkl')
         with open(path, 'rb') as f:
             spec = pkl.load(f)
@@ -120,7 +120,7 @@ class TestCheckFormula:
         gc.collect()
 
     def test_check_mn(self):
-        root = os.path.abspath('..')
+        root = os.path.abspath('.')
         path = os.path.join(root, 'data', 'testing_spectra', 'D24_24_01_212_C25H35Mn2O10.pkl')
         with open(path, 'rb') as f:
             spec = pkl.load(f)

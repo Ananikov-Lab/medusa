@@ -15,12 +15,12 @@ def take_code(filename):
     return code
 
 
-root = os.path.abspath('..')
+root = os.path.abspath('.')
 path = os.path.join(root, 'data', 'pca_tables', 'Tea_table.csv')
 df = pd.read_csv(path, encoding='Windows-1251', sep=';')
 class_decoder = df['Type']
-name_decoder = df['mzXML'].map(lambda x: take_code(x))
-required_keys = df['mzXML']
+name_decoder = df['Vector_name'].map(lambda x: take_code(x))
+required_keys = df['Vector_name']
 colormapper = {
     'white': 'red',
     'green': 'green',
@@ -28,35 +28,21 @@ colormapper = {
     'black': 'yellow'
 }
 
-root = os.path.abspath('..')
-spec_vecs_path = os.path.join(root, 'data', 'plot_pca_files', 'spectra_vecs_dictionary.pkl')
+root = os.path.abspath('.')
+spec_vecs_path = os.path.join(root, 'data', 'plot_pca_files', 'spec_vecs_dictionary.pkl')
 pickle_file = open(spec_vecs_path, 'rb')
 spec_vecs = pkl.load(pickle_file)
-filenames = ['UM-2_23_01_487.mzXML',
-             'UM-2_23_01_488.mzXML',
-             'P-5_16_01_467.mzXML',
-             'P-5_16_01_466.mzXML',
-             'KD-2_2_01_422.mzXML',
-             'P-3_14_01_461.mzXML',
-             'UM-6_27_01_500.mzXML',
-             'UM-1_22_01_484.mzXML',
-             'P-2_13_01_456.mzXML',
-             'P-2_13_01_457.mzXML',
-             'UM-5_26_01_495.mzXML',
-             'UM-5_26_01_496.mzXML']
+filenames = ['Tea_14_31_01_167.mzXML',
+             'Tea_10_27_01_156.mzXML',
+             'Tea_17_34_01_177.mzXML',
+             'Tea_5_22_01_140.mzXML', 
+             'Tea_6_23_01_143.mzXML',
+             'Tea_9_26_01_152.mzXML',
+             'Tea_11_28_01_159.mzXML',
+             'Tea_2_19_01_131.mzXML',
+             'Tea_4_21_01_137.mzXML']
 
-agg_decoder = ['White 1',
-               'White 2',
-               'Oolong 1',
-               'Oolong 2',
-               'Oolong 3',
-               'Green 1',
-               'Green 2',
-               'Green 3',
-               'Black 1',
-               'Black 2',
-               'Black 3',
-               'Black 4']
+agg_decoder = ['Green', 'Green', 'Green', 'Pu-erh', 'Black', 'Black', 'Black', 'Massala', 'Cham']
 
 
 class TestPlotPCA:

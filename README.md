@@ -111,7 +111,7 @@ This algorithm is useful to find isotopic distribution of ion in spectrum with k
 
 ### Deisotoping, compound presence verification, sample-oriented analysis
 
-These algorithms are not rely on the fine isotopic structure thus can be performed on usual HRMS spectra.
+These algorithms are not rely on the fine isotopic structure thus can be performed on usual HRMS spectra. However, the deisotoping models in data folder were trained with measurement mass errors typical for FT-ICR MS. To make model suitable for usual HRMS spectra, you have to train the model on synthetic data with bigger mass measurement errors.  
 
 ### Element classification and element regression
 
