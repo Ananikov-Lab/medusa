@@ -12,7 +12,7 @@ sonogashira_filenames = ['react_mix1.pkl', 'react_mix2.pkl', 'react_mix3.pkl']
 
 class TestLinearDeisotoper:
     def test_tea_samples(self):
-        root = os.path.abspath('..')
+        root = os.path.abspath('.')
         path = os.path.join(root, 'data', 'testing_spectra', 'tea_spec.pkl')
         with open(path, 'rb') as f:
             spectrum = pkl.load(f)
@@ -24,7 +24,7 @@ class TestLinearDeisotoper:
 
     def test_sonogashira_samples(self):
         for filename in sonogashira_filenames:
-            root = os.path.abspath('..')
+            root = os.path.abspath('.')
             path = os.path.join(root, 'data', 'testing_spectra', filename)
             with open(path, 'rb') as f:
                 spectrum = pkl.load(f)
@@ -42,7 +42,7 @@ class TestMlDeisotoper:
             for filename in sonogashira_filenames:
                 s+=1
                 if s < 8:
-                    root = os.path.abspath('..')
+                    root = os.path.abspath('.')
                     path = os.path.join(root, 'data', 'testing_spectra', filename)
                     with open(path, 'rb') as f:
                         spectrum = pkl.load(f)

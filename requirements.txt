@@ -11,6 +11,7 @@ beautifulsoup4==4.11.1
 bleach==5.0.1
 bokeh==2.4.3
 cachetools==5.2.0
+catboost==1.0.6
 certifi==2022.6.15
 cffi==1.15.1
 charset-normalizer==2.1.0
@@ -79,6 +80,7 @@ pyopenms==2.7.0
 pyparsing==3.0.9
 pyrsistent==0.18.1
 pyteomics==4.5.3
+pytest
 python-dateutil==2.8.2
 pytorch-lightning==1.6.5
 pytz==2022.1
