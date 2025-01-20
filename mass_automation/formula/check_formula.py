@@ -13,7 +13,6 @@ ELECTRON_MASS = 0.00054858
 def del_isotopologues(masses: np.ndarray, peaks: np.ndarray, return_ids: Optional[bool] = False) -> Union[
     Tuple[np.ndarray, np.ndarray], List[int]]:
     """Delete low intense isotopologues.
-
     Parameters
     ----------
     masses : np.ndarray
@@ -65,7 +64,6 @@ def del_isotopologues(masses: np.ndarray, peaks: np.ndarray, return_ids: Optiona
 
 def get_peak_candidates(spectrum, peak_mass, error, distance=1):
     """ Peak finding around the given mass.
-
     Parameters
     ----------
     spectrum : Spectrum
@@ -76,7 +74,6 @@ def get_peak_candidates(spectrum, peak_mass, error, distance=1):
         The radius of the slice, where function performs.
     distance : int
         The parameter, used in peak finding algorithm. (default is 1).
-
     Returns
     -------
     Tuple[np.ndarray, np.ndarray, np.ndarray, bool]
@@ -107,7 +104,6 @@ def get_peak_candidates(spectrum, peak_mass, error, distance=1):
 def best_peak(pos_peak_masses, pos_peak_ints, teor_vector, ints_vector):
     """ The function chooses the best peak to add by counting the cosine distance between the theoretical vector
     of intensities and the vector of intensities with the registered peak.
-
     Parameters
     ----------
     pos_peak_masses : np.array
@@ -120,7 +116,6 @@ def best_peak(pos_peak_masses, pos_peak_ints, teor_vector, ints_vector):
         The vector of previous intensities. By adding possible best peak intensity to the ints_vector,
         the function gets the new possible intensities vector and counts the cosine distance between it and the
         theoretical vector.
-
     Returns
     -------
     Tuple[float, float]
@@ -135,7 +130,6 @@ def best_peak(pos_peak_masses, pos_peak_ints, teor_vector, ints_vector):
 
 def add_new_peak(spectrum, delta, vector, teor_vector, dist_error, distance=1):
     """ Adds best peak's mass and intensity to the array of registered masses and intensities respectively.
-
     Parameters
     ----------
     spectrum : Spectrum
@@ -154,7 +148,6 @@ def add_new_peak(spectrum, delta, vector, teor_vector, dist_error, distance=1):
         peak's vicinity.
     distance : int
         The parameter, used in peak finding algorithm. (default is 1).
-
     Returns
     -------
     np.ndarray
@@ -176,7 +169,6 @@ def check_presence(spectrum, formula, cal_error=0.006, dist_error=0.003, distanc
     """
     Calculates the cosine distance between the peaks of the theoretical isotope distribution
     and the peaks in their confidence intervals.
-
     Parameters
     ----------
     spectrum : Spectrum
@@ -235,6 +227,78 @@ def check_presence(spectrum, formula, cal_error=0.006, dist_error=0.003, distanc
                 "The number of components of the possible intensities vector should be equal to the real deisotoped" +
                 " masses' vector.")
 
+        vector_indices[i] = vector
+        pos_cosines[i] = cosine(vector[1], deisotoped_peaks)
+        matched_percentages[i] = np.array(mtchd_p_per).mean()
+        real_coords = vector_indices[min(pos_cosines, key=pos_cosines.get)]
+        mass_delta = abs((real_coords[0] - deisotoped_masses)/deisotoped_masses).mean()*10**6
+    return min(pos_cosines.values()), real_coords, \
+           matched_percentages[min(pos_cosines, key=pos_cosines.get)], mass_delta
+
+def check_presence_isotopologues(spectrum,
+                                 deisotoped_masses,
+                                 deisotoped_peaks,
+                                 cal_error=0.006,
+                                 dist_error=0.003,
+                                 distance=50,
+                                 max_peaks=5):
+    
+    """
+    Calculates the cosine distance between the peaks of the theoretical isotope distribution
+    and the peaks in their confidence intervals without isotopic distribution creation.
+    Parameters
+    ----------
+    spectrum : Spectrum
+        The spectrum, where algorithm tries to detect the substance.
+    deisotoped_masses : np.array
+        Numpy array mith m/z values.
+    deisotoped_peaks : np.array
+        Numpy array with intensities.   
+    cal_error : float
+        The radius of the first peak' vicinity (default is 0.006).
+    dist_error : float
+        The possible error in distance between the peaks, characterizes the radius of the second and the next
+        peak's vicinity (default is 0.001).
+    distance : int
+        The parameter, used in peak finding algorithm. (default is 50).
+    max_peaks : int
+        Limits the number of possible first peaks (default is 5).
+     
+    Returns
+    -------
+    Tuple[float, np.ndarray, np.ndarray, float, float]
+    Cosine distance, the arrays of possible masses and intensities and matched peaks percentage.
+    Mass error (in ppm)
+    """
+    distances = np.diff(deisotoped_masses)
+    first_peak_mass = deisotoped_masses[0]
+    #import ipdb; ipdb.set_trace()
+    pos_first_peak_masses, pos_first_peak_ints, pos_peak_indices, is_mtchd_f = get_peak_candidates(spectrum,
+                                                                                                   first_peak_mass,
+                                                                                                   cal_error,
+                                                                                                   distance=distance)
+    if len(pos_first_peak_masses) > max_peaks:
+        pos_first_peak_masses = pos_first_peak_masses[np.argsort(pos_first_peak_ints)][::-1][0:max_peaks]
+        pos_first_peak_ints = np.sort(pos_first_peak_ints)[::-1][0:max_peaks]
+        pos_peak_indices = pos_peak_indices[np.argsort(pos_first_peak_ints)][::-1][0:max_peaks]
+    pos_cosines = {}
+    vector_indices = {}
+    matched_percentages = {}
+    for i in range(len(pos_peak_indices)):
+        pos_first_peak_mass = pos_first_peak_masses[i]
+        pos_first_peak_int = pos_first_peak_ints[i]
+        vector = np.array([[pos_first_peak_mass], [pos_first_peak_int]])
+        j = vector.shape[1] + 1
+        mtchd_p_per = [is_mtchd_f]
+        for delta in distances:
+            teor_vector = deisotoped_peaks[0:j]
+            j += 1
+            vector, is_matched = add_new_peak(spectrum, delta, vector, teor_vector, dist_error, distance)
+            mtchd_p_per.append(is_matched)
+        if len(vector[1]) != len(deisotoped_peaks):
+            raise ValueError(
+                "The number of components of the possible intensities vector should be equal to the real deisotoped" +
+                " masses' vector.")
         vector_indices[i] = vector
         pos_cosines[i] = cosine(vector[1], deisotoped_peaks)
         matched_percentages[i] = np.array(mtchd_p_per).mean()
